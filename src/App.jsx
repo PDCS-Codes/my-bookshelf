@@ -63,6 +63,36 @@ function App() {
     }));
   }
 
+  function handleReviewSave(newReview) {
+  setBookList((currentBooks) =>
+    currentBooks.map((book) =>
+      book.id === selectedBook.id
+        ? { ...book, review: newReview }
+        : book
+    )
+  );
+
+  setSelectedBook((currentBook) => ({
+    ...currentBook,
+    review: newReview,
+  }));
+}
+
+function handleReviewDelete() {
+  setBookList((currentBooks) =>
+    currentBooks.map((book) =>
+      book.id === selectedBook.id
+        ? { ...book, review: "" }
+        : book
+    )
+  );
+
+  setSelectedBook((currentBook) => ({
+    ...currentBook,
+    review: "",
+  }));
+}
+
   return (
     <div className="app">
       <h1>My Bookshelf</h1>
@@ -89,6 +119,8 @@ function App() {
           book={selectedBook}
           onClose={() => setSelectedBook(null)}
           onRatingChange={handleRatingChange}
+          onReviewSave={handleReviewSave}
+          onReviewDelete={handleReviewDelete}
         />
       )}
     </div>

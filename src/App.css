@@ -297,3 +297,131 @@
 .clear-rating:hover {
   color: #49352a;
 }
+
+.review-section {
+  margin-top: 30px;
+  text-align: left;
+}
+
+.review-section h3 {
+  margin-bottom: 12px;
+  font-size: 1.25rem;
+}
+
+.review-input {
+  width: 100%;
+  min-height: 130px;
+
+  box-sizing: border-box;
+
+  padding: 18px;
+
+  resize: vertical;
+
+  border: none;
+  border-radius: 4px;
+
+  background: #fff1a8;
+
+  color: #49352a;
+
+  font-family: Georgia, serif;
+  font-size: 1rem;
+  line-height: 1.6;
+
+  box-shadow:
+    3px 5px 10px rgba(73, 53, 42, 0.15);
+
+  outline: none;
+}
+
+.review-input:focus {
+  box-shadow:
+    3px 5px 12px rgba(73, 53, 42, 0.2);
+}
+
+.review-input::placeholder {
+  color: #9b8964;
+}
+
+.review-note {
+  position: relative;
+
+  min-height: 100px;
+
+  padding: 22px;
+
+  background: #fff1a8;
+
+  color: #49352a;
+
+  font-family: Georgia, serif;
+  font-size: 1rem;
+  line-height: 1.6;
+
+  box-shadow:
+    3px 5px 12px rgba(73, 53, 42, 0.15);
+
+  transform: rotate(-0.5deg);
+}
+
+.review-note p {
+  margin: 8px 0 0;
+}
+
+.pin {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  font-size: 1.3rem;
+}
+
+.review-actions {
+  display: flex;
+  gap: 10px;
+
+  margin-top: 12px;
+}
+
+.review-actions button {
+  border: none;
+  border-radius: 8px;
+
+  padding: 8px 14px;
+
+  font-family: Georgia, serif;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.15s ease,
+    opacity 0.15s ease;
+}
+
+.review-actions button:hover {
+  transform: translateY(-2px);
+  opacity: 0.85;
+}
+
+.save-review {
+  background: #9c7457;
+  color: white;
+}
+
+.cancel-review {
+  background: #e5d9ca;
+  color: #49352a;
+}
+
+.edit-review {
+  background: #ead39b;
+  color: #49352a;
+}
+
+.delete-review {
+  background: #e6b7ad;
+  color: #49352a;
+}
