@@ -1,6 +1,10 @@
+/* ========================================
+   APP
+======================================== */
+
 .app {
   min-height: 100vh;
-  padding: 50px 25px;
+  padding: 50px 25px 120px;
   text-align: center;
 }
 
@@ -19,6 +23,11 @@
   font-size: 2rem;
   font-weight: normal;
 }
+
+
+/* ========================================
+   BOOKSHELF
+======================================== */
 
 .shelf {
   max-width: 1000px;
@@ -39,7 +48,6 @@
 .book {
   width: 58px;
   height: 230px;
-
   flex-shrink: 0;
 
   display: flex;
@@ -74,17 +82,22 @@
 
   white-space: normal;
   overflow: hidden;
-
   max-height: 205px;
 }
 
 .book:hover {
   transform: translateY(-12px);
+
   box-shadow:
     inset 4px 0 0 rgba(255, 255, 255, 0.18),
     inset -4px 0 0 rgba(0, 0, 0, 0.12),
     5px 8px 12px rgba(0, 0, 0, 0.18);
 }
+
+
+/* ========================================
+   BOOK DETAILS
+======================================== */
 
 .book-details-overlay {
   position: fixed;
@@ -106,14 +119,16 @@
   position: relative;
 
   width: min(600px, 100%);
-  min-height: 350px;
+  max-height: 90vh;
+  overflow-y: auto;
 
   padding: 45px;
 
   background: #fffaf3;
   border-radius: 18px;
 
-  box-shadow: 0 15px 50px rgba(73, 53, 42, 0.25);
+  box-shadow:
+    0 15px 50px rgba(73, 53, 42, 0.25);
 
   text-align: center;
 }
@@ -150,6 +165,7 @@
   display: flex;
   align-items: center;
   gap: 40px;
+
   text-align: left;
 }
 
@@ -160,11 +176,13 @@
 .book-cover {
   width: 180px;
   height: 270px;
+
   object-fit: cover;
 
   border-radius: 6px;
 
-  box-shadow: 8px 8px 18px rgba(73, 53, 42, 0.2);
+  box-shadow:
+    8px 8px 18px rgba(73, 53, 42, 0.2);
 }
 
 .book-cover-placeholder {
@@ -194,6 +212,11 @@
 .description {
   line-height: 1.7;
 }
+
+
+/* ========================================
+   RATING
+======================================== */
 
 .rating {
   margin-top: 30px;
@@ -298,6 +321,11 @@
   color: #49352a;
 }
 
+
+/* ========================================
+   REVIEWS
+======================================== */
+
 .review-section {
   margin-top: 30px;
   text-align: left;
@@ -371,6 +399,7 @@
 
 .pin {
   position: absolute;
+
   top: -12px;
   left: 50%;
 
@@ -424,4 +453,517 @@
 .delete-review {
   background: #e6b7ad;
   color: #49352a;
+}
+
+
+/* ========================================
+   LIBRARY
+======================================== */
+
+.library-section {
+  margin-top: 70px;
+}
+
+.library-section h2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+}
+
+.book-count {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-width: 32px;
+  height: 32px;
+
+  padding: 0 9px;
+
+  border-radius: 50%;
+
+  background: #ead9bb;
+  color: #49352a;
+
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.empty-shelf {
+  max-width: 1000px;
+  min-height: 300px;
+
+  margin: 30px auto 0;
+  padding: 40px 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #f1dfc3;
+
+  border-bottom: 25px solid #9b6745;
+
+  border-radius: 12px 12px 0 0;
+}
+
+.empty-shelf p {
+  color: #8b7563;
+  font-style: italic;
+}
+
+
+/* ========================================
+   HOME PAGE
+======================================== */
+
+.home-page {
+  min-height: 100vh;
+
+  padding: 35px 20px 120px;
+}
+
+
+/* ========================================
+   READING ROOM
+======================================== */
+
+.welcome-section {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 28px;
+  box-shadow: 0 15px 45px rgba(73, 53, 42, 0.18);
+}
+
+
+/* ========================================
+   READING ROOM
+======================================== */
+
+.reading-room {
+  position: relative;
+
+  width: 100%;
+  height: 600px;
+
+  overflow: hidden;
+
+  background: transparent;
+}
+
+.reading-room-image {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+  object-position: center;
+
+  z-index: 1;
+}
+
+.reading-room-overlay {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding-top: 55px;
+
+  text-align: center;
+
+  color: white;
+
+  background: transparent;
+
+  pointer-events: none;
+}
+
+.reading-room-overlay .date {
+  margin: 0 0 8px;
+
+  color: white;
+
+  font-size: 1.05rem;
+  font-style: italic;
+
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+.reading-room-overlay h1 {
+  margin: 8px 0;
+
+  color: white;
+
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.8);
+}
+
+.reading-room-overlay .welcome-message {
+  margin: 8px 0 0;
+
+  color: white;
+
+  font-size: 1.15rem;
+
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+
+/* ========================================
+   READING SUMMARY
+======================================== */
+
+.reading-summary {
+  max-width: 1000px;
+
+  margin: 35px auto;
+
+  display: grid;
+
+  grid-template-columns:
+    1.4fr repeat(3, 1fr);
+
+  gap: 15px;
+}
+
+.lifetime-count,
+.summary-card {
+  min-height: 130px;
+
+  padding: 20px;
+
+  border-radius: 18px;
+
+  background: #fffaf3;
+
+  box-shadow:
+    0 8px 25px rgba(73, 53, 42, 0.08);
+}
+
+.lifetime-count {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 15px;
+}
+
+.count-icon {
+  font-size: 2.5rem;
+}
+
+.lifetime-count strong {
+  font-size: 2.5rem;
+}
+
+.lifetime-count p,
+.summary-card p {
+  margin: 4px 0 0;
+
+  color: #806b5a;
+}
+
+.summary-card {
+  text-align: center;
+}
+
+.summary-card span {
+  display: block;
+
+  font-size: 1.8rem;
+
+  margin-bottom: 5px;
+}
+
+.summary-card strong {
+  font-size: 1.8rem;
+}
+
+
+/* ========================================
+   CURRENTLY READING
+======================================== */
+
+.currently-reading {
+  max-width: 1000px;
+
+  margin: 45px auto 0;
+}
+
+.currently-reading h2 {
+  margin-bottom: 20px;
+}
+
+.current-book-card {
+  display: flex;
+
+  align-items: center;
+
+  gap: 18px;
+
+  width: 100%;
+  max-width: 500px;
+
+  padding: 15px;
+
+  border: none;
+  border-radius: 15px;
+
+  background: #fffaf3;
+  color: #49352a;
+
+  box-shadow:
+    0 8px 25px rgba(73, 53, 42, 0.1);
+
+  text-align: left;
+
+  cursor: pointer;
+}
+
+.current-book-card img,
+.current-book-placeholder {
+  width: 65px;
+  height: 95px;
+
+  object-fit: cover;
+
+  border-radius: 5px;
+}
+
+.current-book-placeholder {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  background: #ead9bb;
+
+  font-size: 1.8rem;
+}
+
+.current-book-card h3 {
+  margin: 0 0 5px;
+}
+
+.current-book-card p {
+  margin: 0;
+
+  color: #806b5a;
+}
+
+
+/* ========================================
+   BOTTOM NAVIGATION
+======================================== */
+
+.bottom-navigation {
+  position: fixed;
+
+  left: 50%;
+  bottom: 15px;
+
+  z-index: 50;
+
+  transform: translateX(-50%);
+
+  display: flex;
+
+  gap: 5px;
+
+  padding: 8px;
+
+  background: rgba(255, 250, 243, 0.95);
+
+  border: 1px solid #ead9c5;
+
+  border-radius: 20px;
+
+  box-shadow:
+    0 8px 30px rgba(73, 53, 42, 0.15);
+
+  backdrop-filter: blur(10px);
+}
+
+.nav-button {
+  min-width: 80px;
+
+  padding: 10px 14px;
+
+  border: none;
+  border-radius: 14px;
+
+  background: transparent;
+
+  color: #806b5a;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.nav-button span {
+  display: block;
+
+  margin-bottom: 3px;
+
+  font-size: 1.2rem;
+}
+
+.nav-button:hover {
+  transform: translateY(-2px);
+}
+
+.nav-button.active {
+  background: #ead9bb;
+
+  color: #49352a;
+}
+
+
+/* ========================================
+   PLACEHOLDER PAGES
+======================================== */
+
+.placeholder-page {
+  min-height: 100vh;
+
+  padding: 100px 20px 150px;
+
+  text-align: center;
+}
+
+.placeholder-page h1 {
+  font-size: 3rem;
+}
+
+.placeholder-page p {
+  color: #806b5a;
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 700px) {
+  .app {
+    padding: 25px 12px 110px;
+  }
+
+  .home-page {
+    padding: 20px 12px 110px;
+  }
+
+  .welcome-section {
+    border-radius: 20px;
+  }
+
+  .reading-room {
+    height: 500px;
+  }
+
+  .reading-room-overlay {
+    padding: 35px 18px;
+  }
+
+  .reading-room-overlay h1 {
+    font-size: 2.35rem;
+  }
+
+  .reading-room-overlay .welcome-message {
+    font-size: 1rem;
+  }
+
+  .reading-summary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .lifetime-count {
+    grid-column: span 2;
+  }
+
+  .bottom-navigation {
+    width: calc(100% - 20px);
+
+    justify-content: space-around;
+  }
+
+  .nav-button {
+    min-width: 0;
+
+    flex: 1;
+
+    padding: 8px 5px;
+
+    font-size: 0.8rem;
+  }
+
+  .book-details {
+    padding: 35px 20px;
+  }
+
+  .book-details-content {
+    flex-direction: column;
+
+    text-align: center;
+
+    gap: 25px;
+  }
+
+  .book-information {
+    width: 100%;
+  }
+
+  .book-information h2 {
+    font-size: 1.8rem;
+  }
+
+  .book-cover,
+  .book-cover-placeholder {
+    width: 150px;
+    height: 225px;
+  }
+
+  .stars {
+    justify-content: center;
+  }
+
+  .review-section {
+    text-align: left;
+  }
+
+  .shelf {
+    overflow-x: auto;
+
+    justify-content: flex-start;
+
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }
