@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import ReadingRoom from "./Components/ReadingRoom/ReadingRoom";
+
 import books from "./data/books";
 import Book from "./Components/Book";
 import BookDetails from "./Components/BookDetails";
+import AddBook from "./Components/AddBook";
 
 const STORAGE_KEY = "my-bookshelf-books";
 
@@ -20,8 +21,8 @@ function App() {
 
   const [draggedBookId, setDraggedBookId] = useState(null);
   const [selectedBook, setSelectedBook] = useState(null);
-
   const [activeTab, setActiveTab] = useState("home");
+  const [showAddBook, setShowAddBook] = useState(false);
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(bookList));
@@ -31,15 +32,24 @@ function App() {
   // BOOK GROUPS
   // -------------------------
 
-  const beforeBooks = bookList.filter((book) => book.status === "before");
+  const beforeBooks = bookList.filter(
+    (book) => book.status === "before"
+  );
 
-  const booksToRead = bookList.filter((book) => book.status === "tbr");
+  const booksToRead = bookList.filter(
+    (book) => book.status === "tbr"
+  );
 
-  const finishedBooks = bookList.filter((book) => book.status === "finished");
+  const finishedBooks = bookList.filter(
+    (book) => book.status === "finished"
+  );
 
-  const currentlyReading = bookList.filter((book) => book.status === "reading");
+  const currentlyReading = bookList.filter(
+    (book) => book.status === "reading"
+  );
 
-  const totalBooksRead = beforeBooks.length + finishedBooks.length;
+  const totalBooksRead =
+    beforeBooks.length + finishedBooks.length;
 
   // -------------------------
   // DATE
@@ -54,6 +64,40 @@ function App() {
   });
 
   // -------------------------
+  // ADD BOOK
+  // -------------------------
+
+  function handleAddBook(newBook) {
+    setBookList((currentBooks) => [
+      ...currentBooks,
+      {
+        ...newBook,
+        order: currentBooks.length,
+      },
+    ]);
+
+    setShowAddBook(false);
+  }
+
+  function handleDeleteBook(bookToDelete) {
+  const confirmed = window.confirm(
+    `Are you sure you want to remove "${bookToDelete.title}"?`
+  );
+
+  if (!confirmed) {
+    return;
+  }
+
+  setBookList((currentBooks) =>
+    currentBooks.filter(
+      (book) => book.id !== bookToDelete.id
+    )
+  );
+
+  setSelectedBook(null);
+}
+
+  // -------------------------
   // DRAG & DROP
   // -------------------------
 
@@ -62,28 +106,36 @@ function App() {
   }
 
   function handleDrop(targetBookId) {
-    if (draggedBookId === null || draggedBookId === targetBookId) {
+    if (
+      draggedBookId === null ||
+      draggedBookId === targetBookId
+    ) {
       return;
     }
 
     const currentBooks = [...bookList];
 
     const draggedIndex = currentBooks.findIndex(
-      (book) => book.id === draggedBookId,
+      (book) => book.id === draggedBookId
     );
 
     const targetIndex = currentBooks.findIndex(
-      (book) => book.id === targetBookId,
+      (book) => book.id === targetBookId
     );
 
-    const [draggedBook] = currentBooks.splice(draggedIndex, 1);
+    const [draggedBook] = currentBooks.splice(
+      draggedIndex,
+      1
+    );
 
     currentBooks.splice(targetIndex, 0, draggedBook);
 
-    const reorderedBooks = currentBooks.map((book, index) => ({
-      ...book,
-      order: index,
-    }));
+    const reorderedBooks = currentBooks.map(
+      (book, index) => ({
+        ...book,
+        order: index,
+      })
+    );
 
     setBookList(reorderedBooks);
     setDraggedBookId(null);
@@ -96,8 +148,10 @@ function App() {
   function handleRatingChange(newRating) {
     setBookList((currentBooks) =>
       currentBooks.map((book) =>
-        book.id === selectedBook.id ? { ...book, rating: newRating } : book,
-      ),
+        book.id === selectedBook.id
+          ? { ...book, rating: newRating }
+          : book
+      )
     );
 
     setSelectedBook((currentBook) => ({
@@ -113,8 +167,10 @@ function App() {
   function handleReviewSave(newReview) {
     setBookList((currentBooks) =>
       currentBooks.map((book) =>
-        book.id === selectedBook.id ? { ...book, review: newReview } : book,
-      ),
+        book.id === selectedBook.id
+          ? { ...book, review: newReview }
+          : book
+      )
     );
 
     setSelectedBook((currentBook) => ({
@@ -126,8 +182,10 @@ function App() {
   function handleReviewDelete() {
     setBookList((currentBooks) =>
       currentBooks.map((book) =>
-        book.id === selectedBook.id ? { ...book, review: "" } : book,
-      ),
+        book.id === selectedBook.id
+          ? { ...book, review: "" }
+          : book
+      )
     );
 
     setSelectedBook((currentBook) => ({
@@ -156,7 +214,9 @@ function App() {
             key={book.id}
             title={book.title}
             color={book.color}
-            onDragStart={() => handleDragStart(book.id)}
+            onDragStart={() =>
+              handleDragStart(book.id)
+            }
             onDrop={() => handleDrop(book.id)}
             onClick={() => setSelectedBook(book)}
           />
@@ -200,22 +260,17 @@ function App() {
               top: "45px",
               left: "50%",
               transform: "translateX(-50%)",
-
               width: "min(500px, 80%)",
-
               padding: "22px 30px",
-
               textAlign: "center",
-
               background: "rgba(255, 248, 232, 0.72)",
               backdropFilter: "blur(10px)",
               WebkitBackdropFilter: "blur(10px)",
-
-              border: "1px solid rgba(255, 255, 255, 0.45)",
+              border:
+                "1px solid rgba(255, 255, 255, 0.45)",
               borderRadius: "22px",
-
-              boxShadow: "0 10px 30px rgba(50, 35, 20, 0.2)",
-
+              boxShadow:
+                "0 10px 30px rgba(50, 35, 20, 0.2)",
               color: "#49352a",
             }}
           >
@@ -235,7 +290,7 @@ function App() {
                 fontSize: "3rem",
               }}
             >
-              Hello Chanara!
+              Hello Chanara! 🌷
             </h1>
 
             <p
@@ -289,9 +344,14 @@ function App() {
                 onClick={() => setSelectedBook(book)}
               >
                 {book.cover ? (
-                  <img src={book.cover} alt={`Cover of ${book.title}`} />
+                  <img
+                    src={book.cover}
+                    alt={`Cover of ${book.title}`}
+                  />
                 ) : (
-                  <div className="current-book-placeholder">📖</div>
+                  <div className="current-book-placeholder">
+                    📖
+                  </div>
                 )}
 
                 <div>
@@ -316,9 +376,22 @@ function App() {
         <h1>My Library 📚</h1>
 
         <section className="library-section">
+          <button
+            className="add-book-button"
+            onClick={() => setShowAddBook(true)}
+          >
+            + Add Book
+          </button>
+
+          {showAddBook && (
+            <AddBook onAddBook={handleAddBook} />
+          )}
+
           <h2>
             📖 Before Books
-            <span className="book-count">{beforeBooks.length}</span>
+            <span className="book-count">
+              {beforeBooks.length}
+            </span>
           </h2>
 
           {renderShelf(beforeBooks)}
@@ -327,7 +400,9 @@ function App() {
         <section className="library-section">
           <h2>
             📚 Books To Read
-            <span className="book-count">{booksToRead.length}</span>
+            <span className="book-count">
+              {booksToRead.length}
+            </span>
           </h2>
 
           {renderShelf(booksToRead)}
@@ -336,7 +411,9 @@ function App() {
         <section className="library-section">
           <h2>
             🌷 Finished Reading
-            <span className="book-count">{finishedBooks.length}</span>
+            <span className="book-count">
+              {finishedBooks.length}
+            </span>
           </h2>
 
           {renderShelf(finishedBooks)}
@@ -346,7 +423,7 @@ function App() {
   }
 
   // -------------------------
-  // OTHER PAGES
+  // STATS
   // -------------------------
 
   function renderStats() {
@@ -358,6 +435,10 @@ function App() {
     );
   }
 
+  // -------------------------
+  // CALENDAR
+  // -------------------------
+
   function renderCalendar() {
     return (
       <main className="placeholder-page">
@@ -366,6 +447,10 @@ function App() {
       </main>
     );
   }
+
+  // -------------------------
+  // APP
+  // -------------------------
 
   return (
     <div className="app">
@@ -385,12 +470,18 @@ function App() {
           onRatingChange={handleRatingChange}
           onReviewSave={handleReviewSave}
           onReviewDelete={handleReviewDelete}
+          onEdit={()=>{}}
+          onDelete={handleDeleteBook}
         />
       )}
 
       <nav className="bottom-navigation">
         <button
-          className={activeTab === "home" ? "nav-button active" : "nav-button"}
+          className={
+            activeTab === "home"
+              ? "nav-button active"
+              : "nav-button"
+          }
           onClick={() => setActiveTab("home")}
         >
           <span>🏠</span>
@@ -399,7 +490,9 @@ function App() {
 
         <button
           className={
-            activeTab === "library" ? "nav-button active" : "nav-button"
+            activeTab === "library"
+              ? "nav-button active"
+              : "nav-button"
           }
           onClick={() => setActiveTab("library")}
         >
@@ -408,7 +501,11 @@ function App() {
         </button>
 
         <button
-          className={activeTab === "stats" ? "nav-button active" : "nav-button"}
+          className={
+            activeTab === "stats"
+              ? "nav-button active"
+              : "nav-button"
+          }
           onClick={() => setActiveTab("stats")}
         >
           <span>📊</span>
@@ -417,7 +514,9 @@ function App() {
 
         <button
           className={
-            activeTab === "calendar" ? "nav-button active" : "nav-button"
+            activeTab === "calendar"
+              ? "nav-button active"
+              : "nav-button"
           }
           onClick={() => setActiveTab("calendar")}
         >

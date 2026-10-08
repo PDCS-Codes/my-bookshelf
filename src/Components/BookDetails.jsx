@@ -7,6 +7,8 @@ function BookDetails({
   onRatingChange,
   onReviewSave,
   onReviewDelete,
+  onDelete,
+  onEdit,
 }) {
   return (
     <div className="book-details-overlay">
@@ -15,37 +17,54 @@ function BookDetails({
           ×
         </button>
 
-        <div className="book-details-content">
-          <div className="book-cover-container">
-            {book.cover ? (
-              <img
-                src={book.cover}
-                alt={`Cover of ${book.title}`}
-                className="book-cover"
-              />
-            ) : (
-              <div className="book-cover-placeholder">
-                📖
-              </div>
-            )}
+        
+          <div className="book-details-content">
+            <div className="book-cover-section">
+            <div className="book-cover-container">
+              {book.cover ? (
+                <img
+                  src={book.cover}
+                  alt={`Cover of ${book.title}`}
+                  className="book-cover"
+                />
+              ) : (
+                <div className="book-cover-placeholder">📖</div>
+              )}
+            </div>
+
+            <div className="book-actions">
+              <button
+              className="book-action-button edit-button"
+              onClick={() => onEdit(book)}
+              title="Edit book"
+              
+              >
+                ✏️
+
+              </button>
+
+              <button
+              className="book-action-button delete-button"
+              onClick={()=> onDelete(book)}
+              title="Delete book"
+              >
+                🗑️
+
+              </button>
+
+            </div>
           </div>
 
           <div className="book-information">
             <h2>{book.title}</h2>
 
-            <p className="author">
-              by {book.author}
-            </p>
+            <p className="author">by {book.author}</p>
 
             <p className="description">
-              {book.description ||
-                "A little description will live here soon."}
+              {book.description || "A little description will live here soon."}
             </p>
 
-            <Rating
-              rating={book.rating || 0}
-              onRatingChange={onRatingChange}
-            />
+            <Rating rating={book.rating || 0} onRatingChange={onRatingChange} />
 
             <Review
               key={book.id}
