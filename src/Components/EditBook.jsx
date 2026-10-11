@@ -12,7 +12,7 @@ function EditBook({ book, onSave, onCancel }) {
   function handleSubmit(event) {
     event.preventDefault();
 
-    const updatedBook = {
+    onSave({
       ...book,
       title: title.trim(),
       author: author.trim(),
@@ -21,129 +21,100 @@ function EditBook({ book, onSave, onCancel }) {
       description: description.trim(),
       startDate: startDate || null,
       endDate: endDate || null,
-    };
-
-    onSave(updatedBook);
+    });
   }
 
   return (
-    <div className="edit-book">
-      <h2>Edit Book ✏️</h2>
+    <div className="edit-book-overlay">
+      <div className="edit-book-panel">
+        <button
+          type="button"
+          className="close-button"
+          onClick={onCancel}
+        >
+          ×
+        </button>
 
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Title</label>
+        <h2>Edit Book ✏️</h2>
+        <p>Updating: {book.title}</p>
 
-          <input
-            type="text"
-            value={title}
-            onChange={(event) =>
-              setTitle(event.target.value)
-            }
-            required
-          />
-        </div>
+        <form onSubmit={handleSubmit}>
+          <label>
+            Title
+            <input
+              value={title}
+              onChange={(event) => setTitle(event.target.value)}
+              required
+            />
+          </label>
 
-        <div>
-          <label>Author</label>
+          <label>
+            Author
+            <input
+              value={author}
+              onChange={(event) => setAuthor(event.target.value)}
+              required
+            />
+          </label>
 
-          <input
-            type="text"
-            value={author}
-            onChange={(event) =>
-              setAuthor(event.target.value)
-            }
-            required
-          />
-        </div>
+          <label>
+            Status
+            <select
+              value={status}
+              onChange={(event) => setStatus(event.target.value)}
+            >
+              <option value="tbr">To Read</option>
+              <option value="reading">Currently Reading</option>
+              <option value="finished">Finished Reading</option>
+              <option value="before">Before Books</option>
+            </select>
+          </label>
 
-        <div>
-          <label>Status</label>
+          <label>
+            Cover URL
+            <input
+              value={cover}
+              onChange={(event) => setCover(event.target.value)}
+              placeholder="Paste a book cover image URL"
+            />
+          </label>
 
-          <select
-            value={status}
-            onChange={(event) =>
-              setStatus(event.target.value)
-            }
-          >
-            <option value="tbr">To Read</option>
-            <option value="reading">
-              Currently Reading
-            </option>
-            <option value="finished">
-              Finished Reading
-            </option>
-            <option value="before">
-              Before Books
-            </option>
-          </select>
-        </div>
+          <label>
+            Description
+            <textarea
+              value={description}
+              onChange={(event) => setDescription(event.target.value)}
+            />
+          </label>
 
-        <div>
-          <label>Cover URL</label>
+          <label>
+            Start Date
+            <input
+              type="date"
+              value={startDate}
+              onChange={(event) => setStartDate(event.target.value)}
+            />
+          </label>
 
-          <input
-            type="text"
-            value={cover}
-            onChange={(event) =>
-              setCover(event.target.value)
-            }
-            placeholder="Paste a book cover image URL"
-          />
-        </div>
+          <label>
+            End Date
+            <input
+              type="date"
+              value={endDate}
+              onChange={(event) => setEndDate(event.target.value)}
+            />
+          </label>
 
-        <div>
-          <label>Description</label>
-
-          <textarea
-            value={description}
-            onChange={(event) =>
-              setDescription(event.target.value)
-            }
-            placeholder="A little description..."
-          />
-        </div>
-
-        <div>
-          <label>Start Date</label>
-
-          <input
-            type="date"
-            value={startDate}
-            onChange={(event) =>
-              setStartDate(event.target.value)
-            }
-          />
-        </div>
-
-        <div>
-          <label>End Date</label>
-
-          <input
-            type="date"
-            value={endDate}
-            onChange={(event) =>
-              setEndDate(event.target.value)
-            }
-          />
-        </div>
-
-        <div>
-          <button type="submit">
-            Save Changes
-          </button>
-
-          <button
-            type="button"
-            onClick={onCancel}
-          >
-            Cancel
-          </button>
-        </div>
-      </form>
+          <div className="edit-book-actions">
+            <button type="submit">Save Changes</button>
+            <button type="button" onClick={onCancel}>
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
 
 export default EditBook;
-

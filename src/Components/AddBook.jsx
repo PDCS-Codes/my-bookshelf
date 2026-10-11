@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function AddBook({ onAddBook }) {
+function AddBook({ onAddBook, onCancel }) {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [status, setStatus] = useState("tbr");
@@ -16,7 +16,7 @@ function AddBook({ onAddBook }) {
       id: Date.now(),
       title: title.trim(),
       author: author.trim(),
-      status: status,
+      status,
       cover: cover.trim(),
       description: description.trim(),
       startDate: startDate || null,
@@ -32,18 +32,24 @@ function AddBook({ onAddBook }) {
 
   return (
     <div className="add-book">
-      <h2>Add a Book</h2>
+      <button
+        type="button"
+        className="add-book-close"
+        onClick={onCancel}
+        aria-label="Close add book form"
+      >
+        ×
+      </button>
+
+      <h2>Add a Book 🌷</h2>
 
       <form onSubmit={handleSubmit}>
         <div>
           <label>Title</label>
-
           <input
             type="text"
             value={title}
-            onChange={(event) =>
-              setTitle(event.target.value)
-            }
+            onChange={(event) => setTitle(event.target.value)}
             placeholder="Enter the book title"
             required
           />
@@ -51,13 +57,10 @@ function AddBook({ onAddBook }) {
 
         <div>
           <label>Author</label>
-
           <input
             type="text"
             value={author}
-            onChange={(event) =>
-              setAuthor(event.target.value)
-            }
+            onChange={(event) => setAuthor(event.target.value)}
             placeholder="Enter the author"
             required
           />
@@ -65,78 +68,55 @@ function AddBook({ onAddBook }) {
 
         <div>
           <label>Status</label>
-
           <select
             value={status}
-            onChange={(event) =>
-              setStatus(event.target.value)
-            }
+            onChange={(event) => setStatus(event.target.value)}
           >
             <option value="tbr">To Read</option>
-            <option value="reading">
-              Currently Reading
-            </option>
-            <option value="finished">
-              Finished Reading
-            </option>
-            <option value="before">
-              Before Books
-            </option>
+            <option value="reading">Currently Reading</option>
+            <option value="finished">Finished Reading</option>
+            <option value="before">Before Books</option>
           </select>
         </div>
 
         <div>
           <label>Cover URL</label>
-
           <input
-            type="text"
+            type="url"
             value={cover}
-            onChange={(event) =>
-              setCover(event.target.value)
-            }
+            onChange={(event) => setCover(event.target.value)}
             placeholder="Paste a book cover image URL"
           />
         </div>
 
         <div>
           <label>Description</label>
-
           <textarea
             value={description}
-            onChange={(event) =>
-              setDescription(event.target.value)
-            }
+            onChange={(event) => setDescription(event.target.value)}
             placeholder="A little description..."
           />
         </div>
 
         <div>
           <label>Start Date</label>
-
           <input
             type="date"
             value={startDate}
-            onChange={(event) =>
-              setStartDate(event.target.value)
-            }
+            onChange={(event) => setStartDate(event.target.value)}
           />
         </div>
 
         <div>
           <label>End Date</label>
-
           <input
             type="date"
             value={endDate}
-            onChange={(event) =>
-              setEndDate(event.target.value)
-            }
+            onChange={(event) => setEndDate(event.target.value)}
           />
         </div>
 
-        <button type="submit">
-          Add Book
-        </button>
+        <button type="submit">Add Book</button>
       </form>
     </div>
   );
