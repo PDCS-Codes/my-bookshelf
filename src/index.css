@@ -9,11 +9,17 @@ body {
   min-height: 100%;
 }
 
+
 body {
   font-family: Georgia, "Times New Roman", serif;
-  background: #fffaf3;
-  color: #49352a;
+  background: var(--page-bg);
+  color: var(--text-primary);
+
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
+
 
 button,
 input,

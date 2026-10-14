@@ -64,6 +64,8 @@ function App() {
   const [activeTab, setActiveTab] = useState("home");
   const [showAddBook, setShowAddBook] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(bookList));
@@ -379,39 +381,79 @@ function App() {
           </div>
         </section>
 
-        <section className="reading-summary">
-          <div className="lifetime-count">
-            <img src="/icons/library.png" alt="" className="section-icon" />
+        
+<section className="summary-grid">
+  <div className="summary-card">
+    <img
+      src="/icons/library.png"
+      alt=""
+      className="section-icon"
+    />
+    <strong>{totalBooksRead}</strong>
+    <p>Books in My Journey</p>
+  </div>
 
-            <div>
-              <strong>{totalBooksRead}</strong>
-              <p>books read</p>
-            </div>
-          </div>
+  <div className="summary-card">
+    <img
+      src="/icons/currently-reading.png"
+      alt=""
+      className="section-icon"
+    />
+    <strong>{currentlyReading.length}</strong>
+    <p>Currently Reading</p>
+  </div>
 
-          <div className="summary-card">
-            <img src="/icons/library.png" alt="" className="section-icon" />
-            <strong>{beforeBooks.length}</strong>
-            <p>Before Books</p>
-          </div>
+  <div className="summary-card">
+    📖
+    <strong>{booksToRead.length}</strong>
+    <p>Books To Read</p>
+  </div>
 
-          <div className="summary-card">
-            <img src="/icons/add.png" alt="" className="section-icon" />
-            <strong>{booksToRead.length}</strong>
-            <p>To Read</p>
-          </div>
+  <div className="summary-card">
+    <img
+      src="/icons/finished-reading.png"
+      alt=""
+      className="section-icon"
+    />
+    <strong>{finishedBooks.length}</strong>
+    <p>Finished</p>
+  </div>
+</section>
 
-          <div className="summary-card">
-            <img
-              src="/icons/finished-reading.png"
-              alt=""
-              className="section-icon"
-            />
-            <strong>{finishedBooks.length}</strong>
-            <p>Finished</p>
-          </div>
-        </section>
+
+        {currentlyReading.length > 0 && (
+          <section className="currently-reading">
+            <h2 className="library-section-heading">
+              <img
+                src="/icons/currently-reading.png"
+                alt=""
+                className="section-icon"
+              />
+              Currently Reading
+            </h2>
+
+            {currentlyReading.map((book) => (
+              <button
+                key={book.id}
+                className="current-book-card"
+                onClick={() => setSelectedBook(book)}
+              >
+                {book.cover ? (
+                  <img src={book.cover} alt={`Cover of ${book.title}`} />
+                ) : (
+                  <div className="current-book-placeholder">📖</div>
+                )}
+
+                <div>
+                  <h3>{book.title}</h3>
+                  <p>{book.author}</p>
+                </div>
+              </button>
+            ))}
+          </section>
+        )}
       </main>
+
     );
   }
 
@@ -422,16 +464,10 @@ function App() {
   function renderLibrary() {
     return (
       <main className="library-page">
-        
-<h1 className="library-page-heading">
-  <img
-    src="/icons/library.png"
-    alt=""
-    className="page-heading-icon"
-  />
-  My Library
-</h1>
-
+        <h1 className="library-page-heading">
+          <img src="/icons/library.png" alt="" className="page-heading-icon" />
+          My Library
+        </h1>
 
         <div className="library-search">
           <img src="/icons/search.png" alt="" className="search-icon" />
@@ -653,7 +689,17 @@ function App() {
   // -------------------------
 
   return (
-    <div className="app">
+    <div className={`app ${isDarkMode ? "dark-mode" : ""}`}>
+      
+<button
+  type="button"
+  className="theme-toggle"
+  onClick={() => setIsDarkMode((currentMode) => !currentMode)}
+  aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+>
+  {isDarkMode ? "☀️ Light Mode" : "🌙 Dark Mode"}
+</button>
+
       {activeTab === "home" && renderHome()}
 
       {activeTab === "library" && renderLibrary()}

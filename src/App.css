@@ -1,3 +1,35 @@
+
+/* ========================================
+   THEME COLOURS
+======================================== */
+
+:root {
+  color-scheme: light;
+
+  --page-bg: #fffaf3;
+  --card-bg: #fffaf3;
+  --input-bg: #fffdf9;
+  --text-primary: #49352a;
+  --text-secondary: #806b5a;
+  --border-color: #eadbc9;
+  --surface-soft: #f1dfc3;
+  --accent-bg: #ead9bb;
+}
+
+.dark-mode {
+  color-scheme: dark;
+
+  --page-bg: #191821;
+  --card-bg: #262430;
+  --input-bg: #302d3a;
+  --text-primary: #f4e9dc;
+  --text-secondary: #c0b0c1;
+  --border-color: #484252;
+  --surface-soft: #35303e;
+  --accent-bg: #494052;
+}
+
+
 /* ========================================
    APP
 ======================================== */
@@ -175,29 +207,34 @@
   transform: scale(1.15);
 }
 
-.book-details-content {
-  display: flex;
-  align-items: center;
-  gap: 40px;
 
-  text-align: left;
+
+.book-details-content {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.8fr) minmax(0, 1.2fr);
+  align-items: start;
+  gap: 36px;
+  width: 100%;
 }
 
+
 .book-cover-container {
-  flex-shrink: 0;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
 }
 
 .book-cover {
-  width: 180px;
-  height: 270px;
-
-  object-fit: cover;
-
-  border-radius: 6px;
-
-  box-shadow:
-    8px 8px 18px rgba(73, 53, 42, 0.2);
+  display: block;
+  width: 100%;
+  max-width: 280px;
+  max-height: 440px;
+  height: auto;
+  object-fit: contain;
+  object-position: top center;
 }
+
 
 .book-cover-placeholder {
   width: 180px;
@@ -1852,3 +1889,189 @@
   flex-shrink: 0;
 }
 
+
+/* ========================================
+   DARK MODE TOGGLE
+======================================== */
+
+.theme-toggle {
+  position: fixed;
+  top: 18px;
+  right: 20px;
+  z-index: 1000;
+
+  padding: 10px 16px;
+
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+
+  background: var(--card-bg);
+  color: var(--text-primary);
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.9rem;
+
+  cursor: pointer;
+
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    transform 0.2s ease;
+}
+
+.theme-toggle:hover {
+  transform: translateY(-2px);
+}
+
+
+/* ========================================
+   DARK MODE — MAIN PAGES AND CARDS
+======================================== */
+
+.dark-mode {
+  background: var(--page-bg);
+  color: var(--text-primary);
+}
+
+.dark-mode .home-page,
+.dark-mode .library-page,
+.dark-mode .stats-page,
+.dark-mode .calendar-page,
+.dark-mode .placeholder-page {
+  background: var(--page-bg);
+  color: var(--text-primary);
+}
+
+.dark-mode .summary-card,
+.dark-mode .lifetime-count,
+.dark-mode .current-book-card,
+.dark-mode .stat-card,
+.dark-mode .monthly-chart-card,
+.dark-mode .reading-calendar,
+.dark-mode .book-details,
+.dark-mode .edit-book-panel,
+.dark-mode .add-book {
+  background: var(--card-bg);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+.dark-mode .current-book-card p,
+.dark-mode .stat-label,
+.dark-mode .stat-note,
+.dark-mode .stats-heading p,
+.dark-mode .chart-heading p,
+.dark-mode .chart-footnote,
+.dark-mode .placeholder-page p {
+  color: var(--text-secondary);
+}
+
+.dark-mode .shelf,
+.dark-mode .empty-shelf {
+  background: var(--surface-soft);
+  border-bottom-color: #68516a;
+}
+
+.dark-mode .book-count,
+.dark-mode .book-cover-placeholder,
+.dark-mode .current-book-placeholder,
+.dark-mode .calendar-header button,
+.dark-mode .chart-total {
+  background: var(--accent-bg);
+  color: var(--text-primary);
+}
+
+.dark-mode .bottom-navigation {
+  background: rgba(38, 36, 48, 0.96);
+  border-color: var(--border-color);
+}
+
+.dark-mode .nav-button {
+  color: var(--text-secondary);
+}
+
+.dark-mode .nav-button.active {
+  background: var(--accent-bg);
+  color: var(--text-primary);
+}
+
+.dark-mode .library-search {
+  background: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+.dark-mode .library-search input {
+  color: var(--text-primary);
+}
+
+.dark-mode .library-search input::placeholder {
+  color: var(--text-secondary);
+}
+
+.dark-mode .calendar-day {
+  background: var(--input-bg);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+.dark-mode .calendar-day.today {
+  background: var(--accent-bg);
+}
+
+.dark-mode .selected-date-details {
+  background: var(--surface-soft);
+  border-color: var(--border-color);
+}
+
+.dark-mode .bar-chart-track {
+  background: var(--surface-soft);
+}
+
+
+/* Keep the book-details close button visible in both themes */
+
+.close-button {
+  color: #49352a;
+}
+
+.dark-mode .close-button {
+  color: #f4e9dc;
+}
+
+.close-button:hover {
+  opacity: 0.75;
+}
+
+
+/* Home page summary cards */
+
+.summary-grid {
+  width: 100%;
+  max-width: 1100px;
+  margin: 35px auto;
+
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.summary-grid .summary-card {
+  min-width: 0;
+  min-height: 180px;
+  padding: 24px 16px;
+}
+
+/* Keep the cards readable on smaller screens */
+@media (max-width: 700px) {
+  .summary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .summary-grid .summary-card {
+    min-height: 150px;
+    padding: 18px 10px;
+  }
+}
